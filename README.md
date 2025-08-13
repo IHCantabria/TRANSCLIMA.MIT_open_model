@@ -47,6 +47,19 @@ pip install cdsapi
 # Save your credentials as ~/.cdsapirc
 ```
 
+## Installation on the Cluster
+
+```bash
+ml Python/3.10.8-GCCcore-12.2.0
+python -m venv Risk
+source Risk/bin/activate
+pip install -r requirements.txt
+
+# Configure CDS API credentials
+# (Instructions: https://cds.climate.copernicus.eu/api-how-to)
+# Save your credentials as ~/.cdsapirc
+```
+
 ---
 
 ## Quick start example in local for ERA5 
@@ -81,4 +94,5 @@ To be completed
 To be completed
 
 ---
+
 
