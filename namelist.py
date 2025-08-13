@@ -3,24 +3,19 @@ import numpy as np
 
 """
 Namelist file that serves as the configuration file for the TC-risk model.
+Modified to suit the CanESM5 model setup.
 """
-
-########################## Input Parameters ###########################
-basin_name = 'NA'
-mu=11.595238095238095 # yearly average of cyclones in the basin
-
-
 
 ########################## File System Parameters ###########################
 src_directory = os.path.dirname(os.path.abspath(__file__))
-base_directory = '%s/data/era5' % src_directory
-output_directory = '%s/data/era5' % src_directory
-exp_name = 'test'
+base_directory = '%s/data' % src_directory
+output_directory = '%s/data' % src_directory
+exp_name = 'test1'
 # For now, we support either 'GCM' or 'ERA5'. Different file types and variable
 # names can be added by modifying the "input.py" file and adding the appropriate
 # variable key words in the structure var_keys.
-dataset_type = 'ERA5' #'GCM'
-exp_prefix = 'era5' #GFDL-CM4_ssp585_r1i1p1f1'
+dataset_type = 'ERA5' #'ERA5'
+exp_prefix = 'era5' #'CanESM5_ssp585_r10i1p1f1' #GFDL-CM4_ssp585_r1i1p1f1' #'era5'
 
 # Variable naming based on dataset_type.
 # 'sst' is sea-surface temperature (monthly-averaged)
@@ -37,33 +32,38 @@ var_keys = {'ERA5': {'sst': 'sst', 'mslp': 'sp', 'temp': 't',
                     'lvl': 'plev', 'lon': 'lon', 'lat': 'lat'}}
 
 ########################### Parallelism Parameters ##########################
-n_procs = 1              # number of processes to use in dask
+n_procs = 16              # number of processes to use in dask
 
 ############################ TC Risk Parameters #############################
 """
 These parameters configure the dates for the TC-risk model.
 """
-start_year = 2016                     # year to start downscaling
+start_year = 2016                   # year to start downscaling
 start_month = 1                       # month of start_year to start downscaling
-end_year = 2021                       # year to stop downscaling
+end_year = 2021                     # year to stop downscaling
 end_month = 12                        # month of end_year to stop downscaling
 
 """
 These parameters configure the output.
 """
-output_interval_s = 10800              # output interval of tracks, seconds (does not change time integration)
+output_interval_s = 3600              # output interval of tracks, seconds (does not change time integration)
 total_track_time_days = 15            # total time to integrate tracks, days
 
-tracks_per_year = 12 # total number of tracks to simulate per year
+########################### Basin & Poisson Parameters #######################
+# Basin to run the downscaling for
+basin_name = "NA"  # 'NA' = North Atlantic, 'EP' = Eastern Pacific, etc.
+
+# Mean number of TCs per year for the basin (from IBTrACS or another dataset)
+mu_tc_per_year = 11.595238095238095  # North Atlantic value from IBTrACS
 
 """
 These parameters configure thermodynamics and thermodynamic constants.
 """
 p_midlevel = 60000
-PI_reduc = 0.80
+PI_reduc = 0.75
 Ck = 1.2e-3
 Cd = 1.2e-3
-select_thermo = 1   # 1 for pseudoadiabatic, 2 for reversible thermodynamics
+select_thermo = 2   # 1 for pseudoadiabatic, 2 for reversible thermodynamics
 select_interp = 2   # 1 for computation, 2 for interpolation
 
 """
@@ -91,8 +91,8 @@ seed_vmax_threshold_ms = 18           # seed vmax threshold over entire lifetime
 # Atmospheric boundary layer depth (FAST), m
 atm_bl_depth = {'NA': 1400.0, 'EP': 1400.0, 'WP': 1800.0, 'AU': 1800.0,
                 'SI': 1600.0, 'SP': 2000.0, 'NI': 1500.0}
-log_chi_fac = 0.5                     # addition to chi in log space
-chi_fac = 1.3                         # addition to chi
+log_chi_fac = 0.6                     # addition to chi in log space
+chi_fac = 1.2                         # addition to chi
 lat_vort_fac = 2                      # sets where vorticity threshold decays toward equator
 lat_vort_power = {'NA': 6, 'EP': 6,   # power decay towards the equator
                   'WP': 3.5, 'AU': 6,
@@ -125,8 +125,3 @@ basin_bounds = {'EP': ['180E', '0N', '290E', '60N'],
                 'WP': ['100E', '0N', '180E', '60N'],
                 'GL': ['0E', '90S', '360E', '90N']}
 
-
-
-def Poisson(mu):
-    poisson_samples = np.random.poisson(mu, 10000)
-    return random.choice(poisson_samples)
