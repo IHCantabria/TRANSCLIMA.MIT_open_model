@@ -1,4 +1,4 @@
-# Modified TCrisk
+# Modified MIT open model
 
 
 ## Description
@@ -12,7 +12,7 @@ It is designed to work efficiently with **ERA5 reanalysis datasets** and GCMs.
 
 ---
 
-## Folder Structure
+## Folder structure
 ```
 ├── data/                 
 ├── examples/                  
@@ -49,7 +49,7 @@ pip install cdsapi
 
 ---
 
-## Quick Start Example in Local for ERA5 
+## Quick start example in local for ERA5 
 ```bash
 conda activate tc_risk
 python scripts/download_era5.py
@@ -59,25 +59,26 @@ python postprocessing/return_period.py
 ```
 After running, you’ll find output files in the `data/test/` directory, including tracks and return period plots.
 
-## Quick Start Example in cluster for ERA5
+## Quick start example in cluster for ERA5
 To be completed
 
-## Quick Start Example in Local for GCMs
+## Quick start example in local for GCMs
 To be completed
 
-## Quick Start Example in cluster for GCMs
+## Quick start example in cluster for GCMs
 To be completed
 
 
 ---
 
-## 👥 Authors
+## Authors
 - @SimonTRAISNEL and @itxasoOderiz – Development and modifications  
 - **Original TCrisk** – [https://github.com/linjonathan/tropical_cyclone_risk]
 
 ---
 
-## 📄 License
+## License
 To be completed
 
 ---
+
