@@ -42,7 +42,7 @@ wind_items=[20, 25, 30, 33, 35, 40, 42, 45, 50, 55, 58, 60, 65, 70, 75, 80, 85]
 pathOut=namelist.base_directory + '/'+namelist.exp_name+'/'
 basin=namelist.basin_name
 
-IB_Storms_Per_Year0_NA = namelist.mu 
+IB_Storms_Per_Year0_NA = namelist.mu_tc_per_year 
 
 name_file_tracks='tracks_'+basin+'_'+namelist.exp_prefix+'_'+str(namelist.start_year)+'01_'+str(namelist.end_year)+str(namelist.end_month)+'e'
 
