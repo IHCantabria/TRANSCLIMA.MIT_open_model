@@ -49,8 +49,7 @@ name_file_tracks='tracks_'+basin+'_'+namelist.exp_prefix+'_'+str(namelist.start_
 period=str(namelist.start_year)+'01_'+str(namelist.end_year)+str(namelist.end_month)
 results_by_city = {}  # dictionary to hold per-city DataFrames
 
-pathTCrisks0=r'C:\Users\oderizi\Documents\GitHub\IH-MIT_open_model\tropical_cyclone_risk-main\data\era5\test/'
-
+pathTCrisks0= namelist.output_directory + '/' + namelist.exp_name + '/'
 
 for iteration in range(N):
     print(f"--- Iteration {iteration} ---")
@@ -177,5 +176,6 @@ os.makedirs(pathOut, exist_ok=True)
 for city, df_result in results_by_city.items():
     safe_city = re.sub(r'\W+', '_', city)
     df_result.to_csv(pathOut+ city + '_' + period + '.csv', index=False)
+
 
 
