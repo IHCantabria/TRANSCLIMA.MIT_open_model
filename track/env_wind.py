@@ -118,11 +118,13 @@ def gen_wind_mean_cov():
 
     import time
     time.sleep(0.5)
-    
+
+    '''
     # Remove intermediate files
     for fn in out_fns:
         os.remove(fn)
-
+    '''
+    
 def wnd_stat_wrapper(args):
     fn_u, fn_v = args
 
@@ -232,3 +234,4 @@ def calc_wnd_stat(ua, va, dt):
                 lat=(ua[input.get_lat_key()].values)))
 
     return wnd_stats
+
